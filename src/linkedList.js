@@ -94,4 +94,82 @@ class LinkedList {
     }
     return removedNode;
   }
+
+  contains(value) {
+    if (value === null) return;
+
+    let currentNode = this.headNode;
+
+    while (currentNode !== null) {
+      if (currentNode === value) {
+        return true;
+      }
+      currentNode = currentNode.nextNode;
+    }
+    return false;
+  }
+  findIndex(value) {
+    if (value === null) return;
+
+    let currentNode = this.headNode;
+
+    let count = 0;
+    while (currentNode !== null) {
+      if (currentNode === value) {
+        return count;
+      }
+
+      count++;
+      currentNode = currentNode.nextNode;
+    }
+    return -1;
+  }
+
+  toString() {
+    let currentNode = this.headNode;
+    let result = "";
+
+    while (currentNode !== null) {
+      result += `(${currentNode}) ->`;
+      currentNode = currentNode.nextNode;
+    }
+    result += "null";
+    return result;
+  }
+
+  insertAt(index, ...values) {
+    if (index < 0 || index > this.size()) {
+      throw Error("out of bounds");
+    }
+
+    if (values.length === 0) return;
+
+    // incase we are inserting at the head node.
+    if (index === 0) {
+      //loop backwards to maintain order when prepended.
+      for (let i = values.length - 1; i >= 0; i--) {
+        this.prepend(values[i]);
+      }
+      return;
+    }
+    // take the previous node (index.length-1) to get the accurate index.
+    let previousNode = this.atIndex(index - 1);
+
+    // store remaining nodes in a variable
+    let remainder = previousNode.nextNode;
+
+    //create new nodes for each value then point to the previous node
+    for (const value in values) {
+      const newNode = new Node(value);
+      previousNode.nextNode = newNode;
+      previousNode = newNode;
+    }
+    //note the previous node is now the last new node. we need to attach the remainder back to the pointer
+    previousNode.nextNode = remainder;
+
+    //update the tailNode.
+    if (remainder === null) {
+      this.tailNode = previousNode;
+    }
+  }
 }
