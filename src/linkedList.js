@@ -172,4 +172,25 @@ class LinkedList {
       this.tailNode = previousNode;
     }
   }
+  removeAt(index) {
+    if (index < 0 || index > this.size()) {
+      throw new Error("out of bounds");
+    }
+
+    const targetNode = this.atIndex(index);
+    const previousNode = this.atIndex(index - 1);
+    const nextNode = targetNode.nextNode;
+
+    if (targetNode === this.headNode) {
+      return this.pop();
+    }
+
+    if (targetNode.nextNode === null) {
+      previousNode.nextNode = null;
+    }
+    previousNode.nextNode = nextNode;
+    targetNode.nextNode = null;
+
+    return targetNode;
+  }
 }
