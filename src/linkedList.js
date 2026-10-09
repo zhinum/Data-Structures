@@ -130,7 +130,7 @@ class LinkedList {
     let result = "";
 
     while (currentNode !== null) {
-      result += `(${currentNode}) ->`;
+      result += `( ${currentNode.value} ) -> `;
       currentNode = currentNode.nextNode;
     }
     result += "null";
@@ -194,3 +194,5 @@ class LinkedList {
     return targetNode;
   }
 }
+
+module.exports = { LinkedList };
