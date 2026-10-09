@@ -71,7 +71,7 @@ class LinkedList {
 
     while (current !== null) {
       if (index === count) {
-        return current;
+        return current.value;
       }
       count++;
       current = current.nextNode;
@@ -101,7 +101,7 @@ class LinkedList {
     let currentNode = this.headNode;
 
     while (currentNode !== null) {
-      if (currentNode === value) {
+      if (currentNode.value === value) {
         return true;
       }
       currentNode = currentNode.nextNode;
@@ -115,7 +115,7 @@ class LinkedList {
 
     let count = 0;
     while (currentNode !== null) {
-      if (currentNode === value) {
+      if (currentNode.value === value) {
         return count;
       }
 
