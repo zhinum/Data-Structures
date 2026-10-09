@@ -22,4 +22,25 @@ describe("LinkedList Class", () => {
       expect(list.toString()).toBe(expectedString);
     });
   });
+
+  describe("Search Operations", () => {
+    beforeEach(() => {
+      initialNames.forEach((name) => list.append(name));
+    });
+
+    test("contains() returns true for existing elements and false for missing ones", () => {
+      expect(list.contains("Charlie")).toBe(true);
+      expect(list.contains("Zendaya")).toBe(false);
+    });
+
+    test("findIndex() returns correct indices", () => {
+      expect(list.findIndex("David")).toBe(3);
+      expect(list.findIndex("Zendaya")).toBe(-1);
+    });
+
+    test("atIndex() returns correct value", () => {
+      expect(list.atIndex(3)).toBe("David");
+      expect(list.atIndex(1)).toBe("Bob");
+    });
+  });
 });
