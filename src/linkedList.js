@@ -187,6 +187,7 @@ class LinkedList {
     }
 
     if (targetNode.nextNode === null) {
+      this.tailNode = previousNode;
       previousNode.nextNode = null;
     }
     previousNode.nextNode = nextNode;
@@ -196,4 +197,11 @@ class LinkedList {
   }
 }
 
+let list = new LinkedList();
+const initialNames = ["Alice", "Bob", "Charlie", "David", "Emma"];
+initialNames.forEach((name) => list.append(name));
+
+console.log(list.removeAt(list.size() - 1));
+
+console.log(list.tail());
 module.exports = { LinkedList };
