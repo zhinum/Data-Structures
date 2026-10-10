@@ -63,4 +63,36 @@ describe("LinkedList Class", () => {
       );
     });
   });
+  describe("removeAt()", () => {
+    beforeEach(() => {
+      initialNames.forEach((name) => list.append(name));
+    });
+
+    test("removes middle node accurately", () => {
+      const removed = list.removeAt(1);
+
+      expect(removed.data || removed.value).toBe("Bob");
+      expect(list.toString()).toBe(
+        "( Alice ) -> ( Charlie ) -> ( David ) -> ( Emma ) -> null",
+      );
+    });
+
+    test("removes tail node and updates tail pointer properly", () => {
+      const tailIndex = list.size() - 1;
+      const removed = list.removeAt(tailIndex);
+
+      expect(removed.value).toBe("Emma");
+      expect(list.toString()).toBe(
+        "( Alice ) -> ( Bob ) -> ( Charlie ) -> ( David ) -> null",
+      );
+
+      const currentTail = list.tail();
+      expect(currentTail.value).toBe("David");
+    });
+
+    test("throws or returns null on out-of-bounds removal", () => {
+      expect(list.removeAt(-1)).toBeNull();
+      expect(list.removeAt(100)).toBeNull();
+    });
+  });
 });
