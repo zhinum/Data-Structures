@@ -43,4 +43,24 @@ describe("LinkedList Class", () => {
       expect(list.atIndex(1)).toBe("Bob");
     });
   });
+
+  describe("insertAt()", () => {
+    beforeEach(() => {
+      initialNames.forEach((name) => list.append(name));
+    });
+
+    test("inserts single node in the middle", () => {
+      list.insertAt(2, "Frank");
+      expect(list.toString()).toBe(
+        "( Alice ) -> ( Bob ) -> ( Frank ) -> ( Charlie ) -> ( David ) -> ( Emma ) -> null",
+      );
+    });
+
+    test("inserts multiple nodes at head (index 0) maintaining order", () => {
+      list.insertAt(0, "Grace", "Hank");
+      expect(list.toString()).toBe(
+        "( Grace ) -> ( Hank ) -> ( Alice ) -> ( Bob ) -> ( Charlie ) -> ( David ) -> ( Emma ) -> null",
+      );
+    });
+  });
 });
