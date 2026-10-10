@@ -71,7 +71,7 @@ class LinkedList {
 
     while (current !== null) {
       if (index === count) {
-        return current.value;
+        return current;
       }
       count++;
       current = current.nextNode;
@@ -153,13 +153,14 @@ class LinkedList {
       return;
     }
     // take the previous node (index.length-1) to get the accurate index.
+
     let previousNode = this.atIndex(index - 1);
 
     // store remaining nodes in a variable
     let remainder = previousNode.nextNode;
 
     //create new nodes for each value then point to the previous node
-    for (const value in values) {
+    for (const value of values) {
       const newNode = new Node(value);
       previousNode.nextNode = newNode;
       previousNode = newNode;
