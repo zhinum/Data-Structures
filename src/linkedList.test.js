@@ -39,8 +39,8 @@ describe("LinkedList Class", () => {
     });
 
     test("atIndex() returns correct value", () => {
-      expect(list.atIndex(3)).toBe("David");
-      expect(list.atIndex(1)).toBe("Bob");
+      expect(list.atIndex(3).value).toBe("David");
+      expect(list.atIndex(1).value).toBe("Bob");
     });
   });
 
