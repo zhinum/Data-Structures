@@ -1,1 +1,1 @@
-import "./linkedList.js";
+import "../Linked-List/linkedList.jsist.js";
