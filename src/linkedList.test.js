@@ -90,9 +90,9 @@ describe("LinkedList Class", () => {
       expect(currentTail.value).toBe("David");
     });
 
-    test("throws or returns null on out-of-bounds removal", () => {
-      expect(list.removeAt(-1)).toBeNull();
-      expect(list.removeAt(100)).toBeNull();
+    test("throws error out-of-bounds removal", () => {
+      expect(() => list.removeAt(-1)).toThrow("out of bounds");
+      expect(() => list.removeAt(100)).toThrow("out of bounds");
     });
   });
 });
