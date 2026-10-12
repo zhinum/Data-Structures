@@ -1,8 +1,8 @@
 class HashMap {
-  constructor(capacity = 16, loadFactor = 0.75) {
-    this.buckets = new Array(this.capacity).fill(null).map(() => []);
+  constructor(initialCapacity = 16, loadFactor = 0.75) {
     this.loadFactor = loadFactor;
-    this.capacity = capacity;
+    this.capacity = initialCapacity;
+    this.buckets = new Array(this.capacity).fill(null).map(() => []);
   }
 
   hash(key) {
@@ -16,7 +16,7 @@ class HashMap {
   }
 
   checker(key, bucket) {
-    for (const e in bucket) {
+    for (const e of bucket) {
       if (e.key === key) {
         return e;
       }
@@ -25,18 +25,22 @@ class HashMap {
   }
 
   set(key, value) {
-    let bucket = this.hash(key);
+    let bucket = this.buckets[this.hash(key)];
+    console.log(bucket);
     let keyCheck = this.checker(key, bucket);
+
     for (const e of bucket) {
       if (keyCheck) {
         e.value = value;
         return;
       }
     }
+
     bucket.push({ key, value });
   }
+
   get(key) {
-    let bucket = this.hash(key);
+    let bucket = this.buckets[this.hash(key)];
     let keyCheck = this.checker(key, bucket);
     for (const e of bucket) {
       if (keyCheck) {
@@ -46,3 +50,11 @@ class HashMap {
     return undefined;
   }
 }
+
+let map = new HashMap();
+console.log(map.hash("France"));
+console.log(map.buckets);
+
+map.set("France", "Paris");
+
+module.exports = { HashMap };
