@@ -1,1 +1,2 @@
-import "../Linked-List/linkedList.jsist.js";
+import "../Linked-List/linkedList.js";
+import "../hash-map/hash.js";
