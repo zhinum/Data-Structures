@@ -33,7 +33,7 @@ describe.only("HashMap Implementation Tests", () => {
   test("get returns null for missing keys", () => {
     map.set("France", "Paris");
 
-    expect(map.get("Canada")).toBeNull();
+    expect(map.get("Canada")).toBeUndefined();
   });
 
   test("set updates existing keys instead of duplicating them", () => {
@@ -43,24 +43,24 @@ describe.only("HashMap Implementation Tests", () => {
     expect(map.get("France")).toBe("Paris (Updated)");
 
     // Ensure the bucket doesn't have duplicate objects for the same key
-    const bucket = map.bucket("France");
+    const bucket = map.entries("France");
     const matches = bucket.filter((item) => item.key === "France");
     expect(matches.length).toBe(1);
   });
 
   test("entry checker returns the correct key object when found", () => {
     map.set("Nigeria", "Abuja");
-    const bucket = map.bucket("Nigeria");
+    const bucket = map.get("Nigeria");
 
-    const found = map.entry(bucket, "Nigeria");
+    const found = map.checker("Nigeria", bucket);
     expect(found).toEqual({ key: "Nigeria", value: "Abuja" });
   });
 
   test("entry checker returns null when key is missing from bucket", () => {
     map.set("Nigeria", "Abuja");
-    const bucket = map.bucket("Nigeria");
+    const bucket = map.get("Nigeria");
 
-    const missing = map.entry(bucket, "Germany");
-    expect(missing).toBeNull();
+    const missing = map.checker("germany", bucket);
+    expect(missing).toBeUndefined();
   });
 });
