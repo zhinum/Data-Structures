@@ -14,6 +14,7 @@ class HashMap {
       const newData = new Array(this.capacity).fill(null).map(() => []);
 
       this.buckets = newData;
+      this.tracker = 0;
 
       oldData.forEach((bucket) =>
         bucket.forEach((item) => this.set(item.key, item.value)),
