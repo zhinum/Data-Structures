@@ -18,7 +18,6 @@ class HashMap {
       oldData.forEach((bucket) =>
         bucket.forEach((item) => this.set(item.key, item.value)),
       );
-      oldData.instantClear();
     } else return;
   }
 
@@ -54,7 +53,8 @@ class HashMap {
     }
 
     bucket.push({ key, value });
-    this.tracker + 1;
+    this.tracker += 1;
+    console.log(this.tracker);
     this.capacityResize();
   }
 
@@ -86,7 +86,7 @@ class HashMap {
     let index = bucket.findIndex((item) => item.key === key);
     if (index !== -1) {
       bucket.splice(index, 1);
-      this.tracker - 1;
+      this.tracker = this.tracker - 1;
       return true;
     }
     return false;
@@ -95,22 +95,25 @@ class HashMap {
   // 1 looping
   lengthLoop() {
     let total = 0;
-    for (let i = 0; i < this.buckets.length(); i++) {
-      total += this.buckets[i];
-    }
+    this.buckets.forEach((bucket) =>
+      bucket.forEach((item) => {
+        if (item.key) {
+          total++;
+        }
+      }),
+    );
     return total;
   }
 
-  lenghtTrack() {
+  lengthTrack() {
     return this.tracker;
   }
 
   // two ways to clear
   clearLoop() {
-    for (let i = 0; i < this.buckets.length(); i++) {
+    for (let i = 0; i < this.buckets.length; i++) {
       this.buckets[i] = [];
     }
-    return this.buckets;
   }
 
   instantClear() {
@@ -157,5 +160,16 @@ class HashMap {
     );
   }
 }
+let map = new HashMap();
+console.log(map.hash("France"));
+console.log(map.buckets);
+map.set("France", "paris");
+console.log(map.lengthTrack());
+let bucket = map.buckets[map.hash("France")];
+console.log(bucket);
+console.log(map.checker("France", bucket));
+
+map.set("Nigeria", "Abuja");
+let buckt = map.get("Nigeria");
 
 module.exports = { HashMap };
