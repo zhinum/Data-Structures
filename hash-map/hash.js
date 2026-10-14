@@ -99,6 +99,46 @@ class HashMap {
   instantClear() {
     this.buckets = new Array(this.capacity).fill(null).map(() => []);
   }
+  // two ways
+  //using forEach
+  keys() {
+    let keyArray = [];
+    this.buckets.forEach((bucket) => {
+      bucket.forEach((item) => keyArray.push(item.key));
+    });
+    return keyArray;
+  }
+
+  values() {
+    let valueArray = [];
+    this.buckets.forEach((bucket) =>
+      bucket.forEach((item) => valueArray.push(item.value)),
+    );
+    return valueArray;
+  }
+
+  entries() {
+    let entriesArray = [];
+    this.buckets.forEach((bucket) =>
+      bucket.forEach((item) => entriesArray.push([item.key, item.value])),
+    );
+    return entriesArray;
+  }
+  // using flatMap ps. a method that maps the buckets then removes the array by one level
+
+  keyFlat() {
+    return this.buckets.flatMap((bucket) => bucket.map((item) => item.key));
+  }
+
+  valueFlat() {
+    return this.buckets.flatMap((bucket) => bucket.map((item) => item.value));
+  }
+
+  entriesFlat() {
+    return this.buckets.flatMap((bucket) =>
+      bucket.map((item) => [item.key, item.value]),
+    );
+  }
 }
 
 module.exports = { HashMap };
