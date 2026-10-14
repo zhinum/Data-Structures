@@ -3,6 +3,23 @@ class HashSet {
     this.capacity = capacity;
     this.loadFactor = loadFactor;
     this.buckets = new Array(this.capacity).fill(null).map(() => []);
+    this.tracker = 0;
+  }
+
+  capacityResize() {
+    let loadCheck = this.tracker / this.capacity;
+    if (loadCheck >= this.loadFactor) {
+      const oldData = this.buckets;
+      this.capacity *= 2;
+      const newData = new Array(this.capacity).fill(null).map(() => []);
+
+      this.buckets = newData;
+      this.tracker = 0;
+
+      oldData.forEach((bucket) =>
+        bucket.forEach((item) => this.set(item.key, item.value)),
+      );
+    } else return;
   }
 
   hash(key) {
@@ -12,6 +29,8 @@ class HashSet {
       hashNumber =
         (primeNumber * hashNumber + key.charCodeAt(i)) % this.capacity;
     }
+    if (hashNumber < 0 || hashNumber >= this.buckets.length)
+      throw new Error("Trying to access index out of bounds");
     return hashNumber;
   }
 
@@ -33,5 +52,7 @@ class HashSet {
       }
     }
     bucket.push([key]);
+    this.tracker += 1;
+    this.capacityResize();
   }
 }
