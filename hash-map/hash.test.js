@@ -50,7 +50,7 @@ describe.only("HashMap Implementation Tests", () => {
 
   test("entry checker returns the correct key object when found", () => {
     map.set("Nigeria", "Abuja");
-    const bucket = map.get("Nigeria");
+    const bucket = map.buckets[map.hash("Nigeria")];
 
     const found = map.checker("Nigeria", bucket);
     expect(found).toEqual({ key: "Nigeria", value: "Abuja" });
@@ -58,9 +58,9 @@ describe.only("HashMap Implementation Tests", () => {
 
   test("entry checker returns null when key is missing from bucket", () => {
     map.set("Nigeria", "Abuja");
-    const bucket = map.get("Nigeria");
+    const bucket = map.buckets[map.hash("Nigeria")];
 
     const missing = map.checker("germany", bucket);
-    expect(missing).toBeUndefined();
+    expect(missing).toBeNull();
   });
 });
