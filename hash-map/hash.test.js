@@ -126,24 +126,25 @@ describe("HashMap Class", () => {
     populateMap(map);
     const keys = map.keys();
     expect(keys).toContain("apple");
-    expect(keys).toContain("lion");
+    expect(keys).toContain("frog");
     expect(keys).toContain("ice cream");
-    expect(keys.length).toBe(12);
+    expect(keys.length).toBe(11);
   });
 
   test("6. values() returns an array of all values in the hash map", () => {
     populateMap(map);
     const values = map.values();
     expect(values).toContain("red");
-    expect(values).toContain("golden");
+    expect(values).toContain("green");
     expect(values).toContain("white");
-    expect(values.length).toBe(12);
+    expect(values.length).toBe(11);
   });
 
   test("7. entries() returns all pairs and 12th item triggers resize correctly", () => {
     populateMap(map);
-
+    map.set("lion", "golden");
     const entries = map.entries();
+
     expect(entries).toContainEqual(["apple", "red"]);
     expect(entries).toContainEqual(["lion", "golden"]);
     expect(entries).toContainEqual(["ice cream", "white"]);
