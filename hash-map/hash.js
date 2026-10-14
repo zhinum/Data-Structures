@@ -6,6 +6,22 @@ class HashMap {
     this.tracker = 0;
   }
 
+  capacityResize() {
+    let loadCheck = this.tracker / this.capacity;
+    if (loadCheck >= this.loadFactor) {
+      const oldData = this.buckets;
+      this.capacity *= 2;
+      const newData = new Array(this.capacity).fill(null).map(() => []);
+
+      this.buckets = newData;
+
+      oldData.forEach((bucket) =>
+        bucket.forEach((item) => this.set(item.key, item.value)),
+      );
+      oldData.instantClear();
+    } else return;
+  }
+
   hash(key) {
     let hashCode = 0;
     let primeNumber = 31;
