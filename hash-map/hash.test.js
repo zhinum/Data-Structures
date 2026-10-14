@@ -117,6 +117,7 @@ describe("HashMap Class", () => {
     populateMap(map);
     map.instantClear();
     expect(map.lengthTrack()).toBe(0);
+    expect(map.lengthLoop()).toBe(0);
     expect(map.has("apple")).toBe(false);
     expect(map.keys()).toEqual([]);
   });
