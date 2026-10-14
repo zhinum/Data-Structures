@@ -22,14 +22,13 @@ class HashMap {
         return e;
       }
     }
-    null;
+    return null;
   }
 
   set(key, value) {
     let bucket = this.buckets[this.hash(key)];
     console.log(bucket);
     let keyCheck = this.checker(key, bucket);
-    console.log(keyCheck);
 
     for (const e of bucket) {
       if (keyCheck) {
@@ -105,7 +104,12 @@ class HashMap {
 let map = new HashMap();
 console.log(map.hash("France"));
 console.log(map.buckets);
+map.set("France", "paris");
+let bucket = map.buckets[map.hash("France")];
+console.log(bucket);
+console.log(map.checker("France", bucket));
 
-map.set("France", "Paris");
+map.set("Nigeria", "Abuja");
+let buckt = map.get("Nigeria");
 
 module.exports = { HashMap };
