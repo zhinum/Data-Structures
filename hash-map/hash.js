@@ -114,10 +114,12 @@ class HashMap {
     for (let i = 0; i < this.buckets.length; i++) {
       this.buckets[i] = [];
     }
+    this.tracker = 0;
   }
 
   instantClear() {
     this.buckets = new Array(this.capacity).fill(null).map(() => []);
+    this.tracker = 0;
   }
   // two ways
   //using forEach
