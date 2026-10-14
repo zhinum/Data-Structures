@@ -49,12 +49,13 @@ class HashMap {
     for (const e of bucket) {
       if (keyCheck) {
         e.value = value;
-        this.tracker + 1;
         return;
       }
     }
 
     bucket.push({ key, value });
+    this.tracker + 1;
+    this.capacityResize();
   }
 
   get(key) {
