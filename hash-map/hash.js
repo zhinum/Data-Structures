@@ -23,13 +23,16 @@ class HashMap {
   }
 
   hash(key) {
-    let hashCode = 0;
+    let hashIndex = 0;
     let primeNumber = 31;
 
     for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
+      hashIndex = (primeNumber * hashIndex + key.charCodeAt(i)) % this.capacity;
     }
-    return hashCode;
+    if (hashIndex < 0 || hashIndex >= this.buckets.length) {
+      throw new Error("trying to access index out of bounds");
+    }
+    return hashIndex;
   }
 
   checker(key, bucket) {
@@ -43,7 +46,7 @@ class HashMap {
 
   set(key, value) {
     let bucket = this.buckets[this.hash(key)];
-    console.log(bucket);
+
     let keyCheck = this.checker(key, bucket);
 
     for (const e of bucket) {
@@ -55,7 +58,6 @@ class HashMap {
 
     bucket.push({ key, value });
     this.tracker += 1;
-    console.log(this.tracker);
     this.capacityResize();
   }
 
@@ -163,16 +165,5 @@ class HashMap {
     );
   }
 }
-let map = new HashMap();
-console.log(map.hash("France"));
-console.log(map.buckets);
-map.set("France", "paris");
-console.log(map.lengthTrack());
-let bucket = map.buckets[map.hash("France")];
-console.log(bucket);
-console.log(map.checker("France", bucket));
-
-map.set("Nigeria", "Abuja");
-let buckt = map.get("Nigeria");
 
 module.exports = { HashMap };
