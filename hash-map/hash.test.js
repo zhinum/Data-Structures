@@ -43,7 +43,7 @@ describe("HashMap Implementation Tests", () => {
     expect(map.get("France")).toBe("Paris (Updated)");
 
     // Ensure the bucket doesn't have duplicate objects for the same key
-    const bucket = map.entries("France");
+    const bucket = map.buckets[map.hash("France")];
     const matches = bucket.filter((item) => item.key === "France");
     expect(matches.length).toBe(1);
   });
