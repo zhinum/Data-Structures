@@ -101,15 +101,4 @@ class HashMap {
   }
 }
 
-let map = new HashMap();
-console.log(map.hash("France"));
-console.log(map.buckets);
-map.set("France", "paris");
-let bucket = map.buckets[map.hash("France")];
-console.log(bucket);
-console.log(map.checker("France", bucket));
-
-map.set("Nigeria", "Abuja");
-let buckt = map.get("Nigeria");
-
 module.exports = { HashMap };
