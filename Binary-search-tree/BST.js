@@ -9,9 +9,7 @@ class Node {
 class Tree {
   constructor(array) {
     let duplicateFilteredArray = this.duplicateRemoval(array);
-    console.log(duplicateFilteredArray);
     const sortedArray = this.sort(duplicateFilteredArray);
-    console.log(sortedArray);
 
     this.root = this.#buildTree(sortedArray, 0, sortedArray.length - 1) || null;
   }
@@ -19,10 +17,8 @@ class Tree {
   #buildTree(array, start, end) {
     if (start > end) return null;
 
-    console.log(start);
-    console.log(end);
     let mid = Math.floor((start + end) / 2);
-    console.log(mid);
+
     let root = new Node(array[mid]);
     root.leftNode = this.#buildTree(array, start, mid - 1);
     root.rightNode = this.#buildTree(array, mid + 1, end);
