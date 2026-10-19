@@ -13,11 +13,13 @@ class Tree {
 
   #buildTree(array, start, end) {
     let duplicateFilteredArray = this.duplicateRemoval(array);
+    console.log(duplicateFilteredArray);
     const sortedArray = this.sort(duplicateFilteredArray);
+    console.log(sortedArray);
 
     if (start > end) return null;
 
-    let mid = (start + end) / 2;
+    let mid = Math.floor((start + end) / 2);
     let root = new Node(sortedArray[mid]);
     root.leftNode = this.#buildTree(sortedArray, start, mid - 1);
     root.rightNode = this.#buildTree(sortedArray, mid + 1, end);
@@ -40,7 +42,7 @@ class Tree {
   }
 
   sort(array) {
-    array.sort((a, b) => a - b);
+    return array.sort((a, b) => a - b);
   }
 
   insert(value) {
