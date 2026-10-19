@@ -30,18 +30,19 @@ class Tree {
     return cleanedArray;
   }
   sortCheck(array) {
-    let start = array[0];
     for (let i = 1; i <= array.length - 1; i++) {
-      if (start > array[i]) {
+      if (array[i - 1] > array[i]) {
         return this.sort(array);
-      } else {
-        return array;
       }
     }
+    return array;
   }
 
   sort(array) {
-    return array.sort((a, b) => a - b);
+    console.log(array);
+    let sorted = array.sort((a, b) => a - b);
+    console.log(sorted);
+    return sorted;
   }
 
   insert(value) {
