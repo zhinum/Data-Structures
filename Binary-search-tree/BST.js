@@ -8,21 +8,24 @@ class Node {
 
 class Tree {
   constructor(array) {
-    this.root = this.#buildTree(array, 0, array.length - 1) || null;
-  }
-
-  #buildTree(array, start, end) {
     let duplicateFilteredArray = this.duplicateRemoval(array);
     console.log(duplicateFilteredArray);
     const sortedArray = this.sort(duplicateFilteredArray);
     console.log(sortedArray);
 
+    this.root = this.#buildTree(sortedArray, 0, sortedArray.length - 1) || null;
+  }
+
+  #buildTree(array, start, end) {
     if (start > end) return null;
 
+    console.log(start);
+    console.log(end);
     let mid = Math.floor((start + end) / 2);
-    let root = new Node(sortedArray[mid]);
-    root.leftNode = this.#buildTree(sortedArray, start, mid - 1);
-    root.rightNode = this.#buildTree(sortedArray, mid + 1, end);
+    console.log(mid);
+    let root = new Node(array[mid]);
+    root.leftNode = this.#buildTree(array, start, mid - 1);
+    root.rightNode = this.#buildTree(array, mid + 1, end);
 
     return root;
   }
