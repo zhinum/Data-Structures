@@ -15,7 +15,7 @@ describe("Binary Search Tree - Isolated Unit Tests", () => {
   test("2. Test Sorting (Merge Sort / Sort Clean) in isolation", () => {
     const unsortedArray = tree.duplicateRemoval(sampleArr);
 
-    const sortedArray = tree.mergeSort(unsortedArray);
+    const sortedArray = tree.sort(unsortedArray);
 
     // Expect the array to be strictly sorted in ascending order
     expect(sortedArray).toEqual([1, 3, 4, 5, 7, 8, 9, 23, 67, 324, 6345]);
