@@ -20,8 +20,26 @@ describe("Binary Search Tree - Isolated Unit Tests", () => {
     // Expect the array to be strictly sorted in ascending order
     expect(sortedArray).toEqual([1, 3, 4, 5, 7, 8, 9, 23, 67, 324, 6345]);
   });
+  test("3. Should return the array as-is if it is already sorted", () => {
+    const alreadySorted = [1, 3, 4, 5, 7, 8, 9];
+    const result = tree.sortCheck(alreadySorted);
+    console.log(result);
 
-  test("3. Test #buildTree using the sorted & unique array", () => {
+    // Expect it to pass through and return the sorted array directly
+    expect(result).toEqual([1, 3, 4, 5, 7, 8, 9]);
+  });
+
+  test("4. Should detect an unsorted array and trigger sort()", () => {
+    const unsortArray = [1, 7, 4, 23, 8, 9, 3, 5, 67, 324];
+    console.log(unsortArray);
+    const result = tree.sortCheck(unsortArray);
+    console.log(result);
+
+    // Expect sortCheck to catch the unordered items and return a cleanly sorted array
+    expect(result).toEqual([1, 3, 4, 5, 7, 8, 9, 23, 67, 324]);
+  });
+
+  test("5. Test #buildTree using the sorted & unique array", () => {
     // With 11 unique sorted items, the middle index (index 5) is 8
     expect(tree.root).not.toBeNull();
     expect(tree.root.value).toBe(8);
