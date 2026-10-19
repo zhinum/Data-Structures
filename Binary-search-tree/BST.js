@@ -13,67 +13,34 @@ class Tree {
 
   #buildTree(array, start, end) {
     let duplicateFilteredArray = this.duplicateRemoval(array);
-    const sortedArray = this.sortCheck(duplicateFilteredArray);
+    const sortedArray = this.sort(duplicateFilteredArray);
 
-    if (start > end) return;
+    if (start > end) return null;
 
     let mid = (start + end) / 2;
     let root = new Node(sortedArray[mid]);
     root.leftNode = this.#buildTree(sortedArray, start, mid - 1);
-    root.rightNode = this.#buildTree(sortedArray, start, mid + 1);
+    root.rightNode = this.#buildTree(sortedArray, mid + 1, end);
 
     return root;
   }
   duplicateRemoval(array) {
-    return [...new Set(array)];
+    let cleanedArray = [...new Set(array)];
+    return cleanedArray;
   }
   sortCheck(array) {
     let start = array[0];
     for (let i = 1; i <= array.length - 1; i++) {
       if (start > array[i]) {
-        return this.mergeSort(array, 0, array.length - 1);
+        return this.sort(array);
       } else {
         return array;
       }
     }
   }
 
-  mergeSort(array, start, end) {
-    if (start >= end) return;
-
-    let mid = (start + end) / 2;
-    this.mergeSort(array, start, mid);
-    this.mergeSort(array, mid + 1, end);
-  }
-
-  merge(array, start, mid, end) {
-    let result = [];
-    let leftIndex = start;
-    let rightIndex = mid + 1;
-
-    while (leftIndex <= mid && rightIndex <= end) {
-      if (array[leftIndex] < array[rightIndex]) {
-        result.push(array[leftIndex]);
-        leftIndex++;
-      } else {
-        result.push(array[rightIndex]);
-        rightIndex++;
-      }
-    }
-
-    while (leftIndex <= mid) {
-      result.push(array[leftIndex]);
-      leftIndex++;
-    }
-
-    while (rightIndex <= mid) {
-      result.push(array[rightIndex]);
-      rightIndex++;
-    }
-
-    for (let i = 0; i <= result.length; i++) {
-      array[start + i] = result[i];
-    }
+  sort(array) {
+    array.sort((a, b) => a - b);
   }
 
   insert(value) {
