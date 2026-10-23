@@ -11,7 +11,7 @@ class Tree {
     let duplicateFilteredArray = this.duplicateRemoval(array);
     const sortedArray = this.sort(duplicateFilteredArray);
 
-    this.root = this.#buildTree(sortedArray, 0, sortedArray.length - 1) || null;
+    this.root = this.#buildTree(sortedArray, 0, sortedArray.length - 1);
   }
 
   #buildTree(array, start, end) {
@@ -138,23 +138,69 @@ class Tree {
 
   levelOrderLoop(callback) {
     if (this.root === null) return;
+    if (typeof callback !== "function") {
+      throw new Error("not a function");
+    }
 
     let queue = [this.root];
 
     while (queue.length > 0) {
       const currentNode = queue.shift();
 
-      if (callback) {
-        callback(currentNode.value);
-      } else throw new Error("callback function not provided");
+      callback(currentNode.value);
 
-      if (currentNode.leftNode) {
-        queue.push(currentNode.leftNode);
-      }
+      queue.push(currentNode.leftNode);
+
       if (currentNode.rightNode) {
         queue.push(currentNode.rightNode);
       }
     }
   }
+
+  preorderForEach(callback) {
+    this.#validateCallback(callback);
+    this.#preorderForEachHelper(this.root, callback);
+  }
+
+  inorderForEach(callback) {
+    this.#validateCallback(callback);
+    this.#inorderForEach(this.root, callback);
+  }
+
+  postorderForEach(callback) {
+    this.#validateCallback(callback);
+    this.#postorderForEach(this.root, callback);
+  }
+
+  #validateCallback(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("not a function");
+    }
+  }
+
+  #preorderForEachHelper(currentNode, callback) {
+    if (currentNode === null) return;
+
+    callback(currentNode.value);
+    this.#preorderForEachHelper(currentNode.leftNode, callback);
+    this.#preorderForEachHelper(currentNode.rightNode, callback);
+  }
+
+  #inorderForEach(currentNode, callback) {
+    if (currentNode === null) return;
+
+    this.#inorderForEach(currentNode.leftNode, callback);
+    callback(currentNode.value);
+    this.#inorderForEach(currentNode.rightNode, callback);
+  }
+
+  #postorderForEach(currentNode, callback) {
+    if (currentNode === null) return;
+
+    this.#postorderForEach(currentNode.leftNode, callback);
+    this.#postorderForEach(currentNode.rightNode, callback);
+    callback(currentNode.value);
+  }
 }
+
 module.exports = { Tree };
