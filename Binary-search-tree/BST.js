@@ -12,6 +12,7 @@ class Tree {
     const sortedArray = this.sort(duplicateFilteredArray);
 
     this.root = this.#buildTree(sortedArray, 0, sortedArray.length - 1);
+    this.balanced = true;
   }
 
   #buildTree(array, start, end) {
@@ -178,10 +179,63 @@ class Tree {
     }
   }
 
+  height(value) {
+    let currentNode = this.root;
+    while (currentNode !== null) {
+      if (value === currentNode.value)
+        return this.#calculateHeight(currentNode);
+      if (value < currentNode.value) {
+        currentNode = currentNode.leftNode;
+      } else {
+        currentNode = currentNode.rightNode;
+      }
+    }
+    return undefined;
+  }
+  //height is the number of edges(connections) nodes from the leaf Nodes
+
+  #calculateHeight(currentNode) {
+    if (currentNode === null) return 0;
+
+    const leftNodeHeight = this.#calculateHeight(currentNode.leftNode);
+
+    const rightNodeHeight = this.#calculateHeight(currentNode.rightNode);
+
+    if (Math.abs(leftNodeHeight - rightNodeHeight) > 1) {
+      this.balanced = false;
+    }
+
+    return Math.max(leftNodeHeight, rightNodeHeight) + 1;
+  }
+
+  depth(value) {
+    if (value === null) return;
+    let depthCount = 0;
+    let currentNode = this.root;
+    while (currentNode !== null) {
+      if (currentNode.value === value) return depthCount;
+
+      if (value > currentNode.value) {
+        currentNode = currentNode.rightNode;
+      }
+      if (value < currentNode.value) {
+        currentNode = currentNode.leftNode;
+      }
+
+      depthCount++;
+    }
+  }
+  isBalanced() {
+    this.balanced = true;
+
+    this.#calculateHeight(this.root);
+
+    return this.balanced;
+  }
+
   #preorderForEachHelper(currentNode, callback) {
     if (currentNode === null) return;
-
-    callback(currentNode.value);
+    -callback(currentNode.value);
     this.#preorderForEachHelper(currentNode.leftNode, callback);
     this.#preorderForEachHelper(currentNode.rightNode, callback);
   }
