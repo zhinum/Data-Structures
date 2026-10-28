@@ -189,7 +189,7 @@ export class Tree {
     while (queue.length > 0) {
       const currentNode = queue.shift();
 
-      callback(currentNode.value);
+      currentNode.value = callback(currentNode.value);
       if (currentNode.leftNode) {
         queue.push(currentNode.leftNode);
       }
@@ -287,7 +287,7 @@ export class Tree {
 
   #preorderForEachHelper(currentNode, callback) {
     if (currentNode === null) return;
-    -callback(currentNode.value);
+    currentNode.value = callback(currentNode.value);
     this.#preorderForEachHelper(currentNode.leftNode, callback);
     this.#preorderForEachHelper(currentNode.rightNode, callback);
   }
@@ -296,7 +296,7 @@ export class Tree {
     if (currentNode === null) return;
 
     this.#inorderForEach(currentNode.leftNode, callback);
-    callback(currentNode.value);
+    currentNode.value = callback(currentNode.value);
     this.#inorderForEach(currentNode.rightNode, callback);
   }
 
@@ -305,6 +305,6 @@ export class Tree {
 
     this.#postorderForEach(currentNode.leftNode, callback);
     this.#postorderForEach(currentNode.rightNode, callback);
-    callback(currentNode.value);
+    currentNode.value = callback(currentNode.value);
   }
 }
