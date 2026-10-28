@@ -1,7 +1,11 @@
-const {Tree} = require("./BST.js");
+import { Tree } from "./BST.js";
 
 function driver() {
-  return [Math.floor(Math.random() * 100)];
+  let randomArr = [];
+  for (let i = 0; i < 100; i++) {
+    randomArr.push(Math.floor(Math.random() * 100));
+  }
+  return randomArr;
 }
 
 const testTree = new Tree(driver());
