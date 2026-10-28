@@ -1,4 +1,4 @@
-export class Node {
+class Node {
   constructor(value) {
     this.value = value;
     this.leftNode = null;
@@ -6,8 +6,9 @@ export class Node {
   }
 }
 
-class Tree {
+export class Tree {
   constructor(array) {
+    console.log(array);
     let duplicateFilteredArray = this.duplicateRemoval(array);
     const sortedArray = this.sort(duplicateFilteredArray);
 
@@ -152,10 +153,10 @@ class Tree {
         levelArray[level] = [];
       }
 
-      level.push(node.value);
+      levelArray.push(node.value);
 
-      traverseBreathOrderRecur(node.left, level + 1);
-      traverseBreathOrderRecur(node.right, level + 1);
+      traverseBreathOrderRecur(node.leftNode, level + 1);
+      traverseBreathOrderRecur(node.rightNode, level + 1);
     }
 
     traverseBreathOrderRecur(this.root, 0);
@@ -296,5 +297,3 @@ class Tree {
     callback(currentNode.value);
   }
 }
-
-module.exports = { Tree };
