@@ -13,6 +13,7 @@ export class Tree {
     const sortedArray = this.sort(duplicateFilteredArray);
 
     this.root = this.#buildTree(sortedArray, 0, sortedArray.length - 1);
+    console.log(this.root);
     this.balanced = false;
   }
 
@@ -169,6 +170,7 @@ export class Tree {
   }
 
   levelOrderLoop(callback) {
+    console.log(callback);
     if (this.root === null) return;
     if (typeof callback !== "function") {
       throw new Error("not a function");
@@ -176,12 +178,15 @@ export class Tree {
 
     let queue = [this.root];
 
+    console.log(queue);
+
     while (queue.length > 0) {
       const currentNode = queue.shift();
 
       callback(currentNode.value);
-
-      queue.push(currentNode.leftNode);
+      if (currentNode.leftNode) {
+        queue.push(currentNode.leftNode);
+      }
 
       if (currentNode.rightNode) {
         queue.push(currentNode.rightNode);
