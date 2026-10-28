@@ -153,6 +153,7 @@ export class Tree {
 
   levelOrderRecursively(callback) {
     const levelArray = [];
+    this.#validateCallback(callback);
     function traverseBreathOrderRecur(node, level) {
       if (node === null) return;
 
@@ -170,20 +171,16 @@ export class Tree {
 
     let flatArray = levelArray.flat();
     console.log(flatArray);
-    if (callback) {
-      console.log(callback);
-      flatArray.forEach((node) => (node.value = callback(node.value)));
-      console.log(flatArray);
-      return flatArray;
-    } else throw new Error("callback not provided");
+
+    console.log(callback);
+    flatArray.forEach((node) => (node.value = callback(node.value)));
+    console.log(flatArray);
   }
 
   levelOrderLoop(callback) {
     console.log(callback);
     if (this.root === null) return;
-    if (typeof callback !== "function") {
-      throw new Error("not a function");
-    }
+    this.#validateCallback(callback);
 
     let queue = [this.root];
 
