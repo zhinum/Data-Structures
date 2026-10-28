@@ -29,7 +29,7 @@ export class Tree {
     return root;
   }
 
-  prettyPrint(currentNode = this.root, prefix = "", isLeft = true) {
+  prettyPrint(currentNode, prefix = "", isLeft = true) {
     if (currentNode === null || currentNode === undefined) {
       return;
     }
@@ -169,9 +169,14 @@ export class Tree {
     traverseBreathOrderRecur(this.root, 0);
 
     let flatArray = levelArray.flat();
+    console.log(flatArray);
     if (callback) {
-      flatArray.forEach((item) => callback(item));
-      return;
+      console.log(callback);
+      for (let i = 0; i < flatArray.length; i++) {
+        flatArray[i] = callback(flatArray[i]);
+      }
+      console.log(flatArray);
+      return flatArray;
     } else throw new Error("callback not provided");
   }
 
