@@ -1,4 +1,4 @@
-class Node {
+export class Node {
   constructor(value) {
     this.value = value;
     this.leftNode = null;
@@ -27,6 +27,23 @@ class Tree {
     return root;
   }
 
+  prettyPrint(currentNode = this.root, prefix = "", isLeft = true) {
+    if (currentNode === null || currentNode === undefined) {
+      return;
+    }
+
+    this.prettyPrint(
+      currentNode.rightNode,
+      `${prefix}${isLeft ? "│   " : "    "}`,
+      false,
+    );
+    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${currentNode.value}`);
+    this.prettyPrint(
+      currentNode.leftNode,
+      `${prefix}${isLeft ? "    " : "│   "}`,
+      true,
+    );
+  }
   duplicateRemoval(array) {
     let cleanedArray = [...new Set(array)];
     return cleanedArray;
