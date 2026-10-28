@@ -1,4 +1,4 @@
-const { Tree } = require("./BST.js");
+const {Tree} = require("./BST.js");
 
 function driver() {
   return [Math.floor(Math.random() * 100)];
