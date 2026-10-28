@@ -94,11 +94,17 @@ export class Tree {
     }
 
     if (value < currentNode.value) {
-      currentNode.leftNode = this.#insertRecursively(value, currentNode);
+      currentNode.leftNode = this.#insertRecursively(
+        value,
+        currentNode.leftNode,
+      );
     }
 
     if (value > currentNode.value) {
-      currentNode.rightNode = this.#insertRecursively(value, currentNode);
+      currentNode.rightNode = this.#insertRecursively(
+        value,
+        currentNode.rightNode,
+      );
     }
   }
 
