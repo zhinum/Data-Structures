@@ -14,11 +14,16 @@ console.log(testTree.isBalanced());
 function add(num) {
   return num + 2;
 }
-testTree.prettyPrint(testTree.levelOrderRecursively(add));
-testTree.prettyPrint(testTree.levelOrderLoop(add));
-testTree.prettyPrint(testTree.inorderForEach(add));
-testTree.prettyPrint(testTree.postorderForEach(add));
-testTree.prettyPrint(testTree.preorderForEach(add));
+testTree.prettyPrint(testTree.root);
+testTree.levelOrderRecursively(add);
+testTree.prettyPrint(testTree.root);
+testTree.levelOrderLoop(add);
+testTree.prettyPrint(testTree.root);
+testTree.inorderForEach(add);
+testTree.prettyPrint(testTree.root);
+testTree.postorderForEach(add);
+testTree.prettyPrint(testTree.root);
+testTree.preorderForEach(add);
 
 testTree.insert(204);
 testTree.insert(224);
