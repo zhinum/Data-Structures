@@ -12,7 +12,7 @@ class Tree {
     const sortedArray = this.sort(duplicateFilteredArray);
 
     this.root = this.#buildTree(sortedArray, 0, sortedArray.length - 1);
-    this.balanced = true;
+    this.balanced = false;
   }
 
   #buildTree(array, start, end) {
@@ -47,7 +47,20 @@ class Tree {
     console.log(sorted);
     return sorted;
   }
+  includes(value) {
+    let currentNode = this.root;
+    if (currentNode.value === value) {
+      return true;
+    }
 
+    if (value > currentNode.value) {
+      this.includes(currentNode.rightNode);
+    }
+    if (value < currentNode) {
+      this.includes(currentNode.leftNode);
+    }
+    return false;
+  }
   insert(value) {
     this.#insertRecursively(value, this.root);
   }
@@ -231,6 +244,16 @@ class Tree {
     this.#calculateHeight(this.root);
 
     return this.balanced;
+  }
+  rebalance() {
+    if (this.isBalanced === true) return "Tree is already balanced";
+    let newArr = [];
+
+    let callback = newArr.push();
+    let currentNode = this.root;
+    this.#inorderForEach(currentNode, callback);
+
+    new Tree(newArr);
   }
 
   #preorderForEachHelper(currentNode, callback) {
