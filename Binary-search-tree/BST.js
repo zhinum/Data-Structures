@@ -160,7 +160,7 @@ export class Tree {
         levelArray[level] = [];
       }
 
-      levelArray.push(node.value);
+      levelArray.push(node);
 
       traverseBreathOrderRecur(node.leftNode, level + 1);
       traverseBreathOrderRecur(node.rightNode, level + 1);
@@ -172,9 +172,7 @@ export class Tree {
     console.log(flatArray);
     if (callback) {
       console.log(callback);
-      for (let i = 0; i < flatArray.length; i++) {
-        flatArray[i] = callback(flatArray[i]);
-      }
+      flatArray.forEach((node) => (node.value = callback(node.value)));
       console.log(flatArray);
       return flatArray;
     } else throw new Error("callback not provided");
