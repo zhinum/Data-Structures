@@ -35,10 +35,12 @@ testTree.insert(207);
 testTree.insert(604);
 testTree.insert(254);
 testTree.insert(294);
+testTree.prettyPrint(testTree.root);
 
 console.log(testTree.isBalanced());
 
-testTree.rebalance;
+const rebalanceTree = testTree.rebalance();
+rebalanceTree.prettyPrint(rebalanceTree.root);
 
 console.log(testTree.isBalanced());
 
