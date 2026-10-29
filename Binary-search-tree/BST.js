@@ -208,12 +208,12 @@ export class Tree {
 
   inorderForEach(callback) {
     this.#validateCallback(callback);
-    this.#inorderForEach(this.root, callback);
+    this.#inorderForEachHelper(this.root, callback);
   }
 
   postorderForEach(callback) {
     this.#validateCallback(callback);
-    this.#postorderForEach(this.root, callback);
+    this.#postorderForEachHelper(this.root, callback);
   }
 
   #validateCallback(callback) {
@@ -278,12 +278,13 @@ export class Tree {
   rebalance() {
     if (this.isBalanced === true) return "Tree is already balanced";
     let newArr = [];
+    function push(num) {
+      newArr.push(num);
+    }
 
-    let callback = newArr.push();
-    let currentNode = this.root;
-    this.#inorderForEach(currentNode, callback);
-
-    new Tree(newArr);
+    this.inorderForEach(push);
+    console.log(newArr);
+    return new Tree(newArr);
   }
 
   #preorderForEachHelper(currentNode, callback) {
@@ -293,19 +294,19 @@ export class Tree {
     this.#preorderForEachHelper(currentNode.rightNode, callback);
   }
 
-  #inorderForEach(currentNode, callback) {
+  #inorderForEachHelper(currentNode, callback) {
     if (currentNode === null) return;
 
-    this.#inorderForEach(currentNode.leftNode, callback);
+    this.#inorderForEachHelper(currentNode.leftNode, callback);
     currentNode.value = callback(currentNode.value);
-    this.#inorderForEach(currentNode.rightNode, callback);
+    this.#inorderForEachHelper(currentNode.rightNode, callback);
   }
 
-  #postorderForEach(currentNode, callback) {
+  #postorderForEachHelper(currentNode, callback) {
     if (currentNode === null) return;
 
-    this.#postorderForEach(currentNode.leftNode, callback);
-    this.#postorderForEach(currentNode.rightNode, callback);
+    this.#postorderForEachHelper(currentNode.leftNode, callback);
+    this.#postorderForEachHelper(currentNode.rightNode, callback);
     currentNode.value = callback(currentNode.value);
   }
 }
