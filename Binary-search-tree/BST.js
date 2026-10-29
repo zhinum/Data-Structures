@@ -240,8 +240,10 @@ export class Tree {
   #calculateHeight(currentNode) {
     if (currentNode === null) return 0;
 
-    const leftNodeHeight = this.#calculateHeight(currentNode.leftNode);
+    if (currentNode === undefined)
+      throw new Error("undefined node pushed into tree");
 
+    const leftNodeHeight = this.#calculateHeight(currentNode.leftNode);
     const rightNodeHeight = this.#calculateHeight(currentNode.rightNode);
 
     if (Math.abs(leftNodeHeight - rightNodeHeight) > 1) {
