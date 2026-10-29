@@ -106,6 +106,7 @@ export class Tree {
         currentNode.rightNode,
       );
     }
+    return currentNode;
   }
 
   delete(value) {
