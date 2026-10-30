@@ -34,7 +34,6 @@ testTree.insert(224);
 testTree.insert(264);
 testTree.insert(304);
 testTree.insert(208);
-
 testTree.insert(404);
 testTree.insert(207);
 

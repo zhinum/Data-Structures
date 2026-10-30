@@ -11,7 +11,7 @@ export class Tree {
     console.log(array);
     let duplicateFilteredArray = this.duplicateRemoval(array);
     const sortedArray = this.sort(duplicateFilteredArray);
-
+    console.log(sortedArray);
     this.root = this.#buildTree(sortedArray, 0, sortedArray.length - 1);
     console.log(this.root);
     this.balanced = false;
@@ -23,6 +23,7 @@ export class Tree {
     let mid = Math.floor((start + end) / 2);
 
     let root = new Node(array[mid]);
+
     root.leftNode = this.#buildTree(array, start, mid - 1);
     root.rightNode = this.#buildTree(array, mid + 1, end);
 
@@ -61,9 +62,8 @@ export class Tree {
   }
 
   sort(array) {
-    console.log(array);
     let sorted = array.sort((a, b) => a - b);
-    console.log(sorted);
+
     return sorted;
   }
   includes(value) {
@@ -87,6 +87,11 @@ export class Tree {
   #insertRecursively(value, currentNode) {
     if (currentNode === null) {
       return new Node(value);
+    }
+    if (currentNode === undefined) {
+      console.error("undefined node pushed into tree");
+      console.trace();
+      process.exit(1);
     }
 
     if (currentNode.value === value) {
@@ -240,8 +245,11 @@ export class Tree {
   #calculateHeight(currentNode) {
     if (currentNode === null) return 0;
 
-    if (currentNode === undefined)
-      throw new Error("undefined node pushed into tree");
+    if (currentNode === undefined) {
+      console.error("undefined node pushed into tree");
+      console.trace();
+      process.exit(1);
+    }
 
     const leftNodeHeight = this.#calculateHeight(currentNode.leftNode);
     const rightNodeHeight = this.#calculateHeight(currentNode.rightNode);
