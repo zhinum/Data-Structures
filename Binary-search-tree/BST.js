@@ -95,7 +95,8 @@ export class Tree {
     }
 
     if (currentNode.value === value) {
-      return;
+      console.log("duplicate found buuuuuutttttt no breaaaakkkks");
+      return currentNode;
     }
 
     if (value < currentNode.value) {

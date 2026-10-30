@@ -37,7 +37,7 @@ testTree.insert(208);
 testTree.insert(404);
 testTree.insert(207);
 
-testTree.insert(604);
+testTree.insert(104);
 testTree.insert(254);
 testTree.insert(294);
 testTree.prettyPrint(testTree.root);
