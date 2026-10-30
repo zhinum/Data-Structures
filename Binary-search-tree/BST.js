@@ -5,15 +5,13 @@ class Node {
     this.rightNode = null;
   }
 }
-
 export class Tree {
   constructor(array) {
-    console.log(array);
     let duplicateFilteredArray = this.duplicateRemoval(array);
     const sortedArray = this.sort(duplicateFilteredArray);
-    console.log(sortedArray);
+
     this.root = this.#buildTree(sortedArray, 0, sortedArray.length - 1);
-    console.log(this.root);
+
     this.balanced = false;
   }
 
@@ -68,6 +66,7 @@ export class Tree {
   }
   includes(value) {
     let currentNode = this.root;
+    this.#undefinedCheck(currentNode);
     if (currentNode.value === value) {
       return true;
     }
@@ -88,14 +87,9 @@ export class Tree {
     if (currentNode === null) {
       return new Node(value);
     }
-    if (currentNode === undefined) {
-      console.error("undefined node pushed into tree");
-      console.trace();
-      process.exit(1);
-    }
+    this.#undefinedCheck(currentNode);
 
     if (currentNode.value === value) {
-      console.log("duplicate found buuuuuutttttt no breaaaakkkks");
       return currentNode;
     }
 
@@ -123,6 +117,7 @@ export class Tree {
     if (currentNode === null || currentNode === value) {
       return currentNode;
     }
+    this.#undefinedCheck(currentNode);
     // look for node with value.
     if (value > currentNode.value) {
       currentNode.rightNode = this.#deleteItemRecur(value, currentNode.right);
@@ -163,6 +158,7 @@ export class Tree {
     this.#validateCallback(callback);
     function traverseBreathOrderRecur(node, level) {
       if (node === null) return;
+      this.#undefinedCheck(node);
 
       if (!levelArray[level]) {
         levelArray[level] = [];
@@ -177,15 +173,10 @@ export class Tree {
     traverseBreathOrderRecur(this.root, 0);
 
     let flatArray = levelArray.flat();
-    console.log(flatArray);
-
-    console.log(callback);
     flatArray.forEach((node) => (node.value = callback(node.value)));
-    console.log(flatArray);
   }
 
   levelOrderLoop(callback) {
-    console.log(callback);
     if (this.root === null) return;
     this.#validateCallback(callback);
 
@@ -195,7 +186,7 @@ export class Tree {
 
     while (queue.length > 0) {
       const currentNode = queue.shift();
-
+      this.#undefinedCheck(currentNode);
       currentNode.value = callback(currentNode.value);
       if (currentNode.leftNode) {
         queue.push(currentNode.leftNode);
@@ -228,9 +219,16 @@ export class Tree {
     }
   }
 
+  #undefinedCheck(currentNode) {
+    if (currentNode === undefined) {
+      throw new Error("undefined node found");
+    }
+  }
+
   height(value) {
     let currentNode = this.root;
     while (currentNode !== null) {
+      this.#undefinedCheck(currentNode);
       if (value === currentNode.value)
         return this.#calculateHeight(currentNode);
       if (value < currentNode.value) {
@@ -246,11 +244,7 @@ export class Tree {
   #calculateHeight(currentNode) {
     if (currentNode === null) return 0;
 
-    if (currentNode === undefined) {
-      console.error("undefined node pushed into tree");
-      console.trace();
-      process.exit(1);
-    }
+    this.#undefinedCheck(currentNode);
 
     const leftNodeHeight = this.#calculateHeight(currentNode.leftNode);
     const rightNodeHeight = this.#calculateHeight(currentNode.rightNode);
@@ -267,6 +261,7 @@ export class Tree {
     let depthCount = 0;
     let currentNode = this.root;
     while (currentNode !== null) {
+      this.#undefinedCheck(currentNode);
       if (currentNode.value === value) return depthCount;
 
       if (value > currentNode.value) {
@@ -300,6 +295,7 @@ export class Tree {
 
   #preorderForEachHelper(currentNode, callback) {
     if (currentNode === null) return;
+    this.#undefinedCheck(currentNode);
     currentNode.value = callback(currentNode.value);
     this.#preorderForEachHelper(currentNode.leftNode, callback);
     this.#preorderForEachHelper(currentNode.rightNode, callback);
@@ -307,7 +303,7 @@ export class Tree {
 
   #inorderForEachHelper(currentNode, callback) {
     if (currentNode === null) return;
-
+    this.#undefinedCheck(currentNode);
     this.#inorderForEachHelper(currentNode.leftNode, callback);
     currentNode.value = callback(currentNode.value);
     this.#inorderForEachHelper(currentNode.rightNode, callback);
@@ -315,7 +311,7 @@ export class Tree {
 
   #postorderForEachHelper(currentNode, callback) {
     if (currentNode === null) return;
-
+    this.#undefinedCheck(currentNode);
     this.#postorderForEachHelper(currentNode.leftNode, callback);
     this.#postorderForEachHelper(currentNode.rightNode, callback);
     currentNode.value = callback(currentNode.value);
