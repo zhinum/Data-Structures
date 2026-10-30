@@ -64,21 +64,27 @@ export class Tree {
 
     return sorted;
   }
+
   includes(value) {
-    let currentNode = this.root;
-    this.#undefinedCheck(currentNode);
+    return this.#includesHelper(value, this.root);
+  }
+
+  #includesHelper(value, currentNode) {
+    this.#undefinedCheck(value);
+    if (currentNode === null) {
+      return false;
+    }
+
     if (currentNode.value === value) {
       return true;
     }
 
-    if (value > currentNode.value) {
-      this.includes(currentNode.rightNode);
+    if (value < currentNode.value) {
+      return this.#includesHelper(value, currentNode.leftNode);
     }
-    if (value < currentNode) {
-      this.includes(currentNode.leftNode);
-    }
-    return false;
+    return this.#includesHelper(value, currentNode.rightNode);
   }
+
   insert(value) {
     this.#insertRecursively(value, this.root);
   }
@@ -317,3 +323,8 @@ export class Tree {
     currentNode.value = callback(currentNode.value);
   }
 }
+
+const arr = [10, 5, 15, 3, 7, 20, 25];
+const tree = new Tree(arr);
+
+const found = tree.includes(10);
