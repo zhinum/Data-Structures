@@ -95,10 +95,6 @@ export class Tree {
     }
     this.#undefinedCheck(currentNode);
 
-    if (currentNode.value === value) {
-      return currentNode;
-    }
-
     if (value < currentNode.value) {
       currentNode.leftNode = this.#insertRecursively(
         value,
@@ -111,6 +107,8 @@ export class Tree {
         value,
         currentNode.rightNode,
       );
+    } else if (currentNode.value === value) {
+      return currentNode;
     }
     return currentNode;
   }
