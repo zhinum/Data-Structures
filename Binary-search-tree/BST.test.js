@@ -80,36 +80,36 @@ describe("Binary Search Tree - Operations & Deletion Unit Tests", () => {
     expect(tree.height(20)).toBe(1); // Node with one child height is 1
     expect(tree.height(10)).toBe(2); // Root height spans the max depth
   });
-});
 
-describe("4. Test delete method variations", () => {
-  test("should delete a leaf node (0 children)", () => {
-    tree.delete(3); // 3 is a leaf node
-    expect(tree.includes(3)).toBe(false);
-    // Ensure other nodes remain intact
-    expect(tree.includes(5)).toBe(true);
-    expect(tree.includes(7)).toBe(true);
-  });
+  describe("4. Test delete method variations", () => {
+    test("should delete a leaf node (0 children)", () => {
+      tree.delete(3); // 3 is a leaf node
+      expect(tree.includes(3)).toBe(false);
+      // Ensure other nodes remain intact
+      expect(tree.includes(5)).toBe(true);
+      expect(tree.includes(7)).toBe(true);
+    });
 
-  test("should delete a node with one child", () => {
-    tree.delete(20); // 20 has one child (25)
-    expect(tree.includes(20)).toBe(false);
-    expect(tree.includes(25)).toBe(true); // Child should still be reachable
-  });
+    test("should delete a node with one child", () => {
+      tree.delete(20); // 20 has one child (25)
+      expect(tree.includes(20)).toBe(false);
+      expect(tree.includes(25)).toBe(true); // Child should still be reachable
+    });
 
-  test("should delete a node with two children", () => {
-    tree.delete(5); // 5 has two children (3 and 7)
-    expect(tree.includes(5)).toBe(false);
-    expect(tree.includes(3)).toBe(true); // Left child preserved
-    expect(tree.includes(7)).toBe(true); // Right child preserved
-  });
+    test("should delete a node with two children", () => {
+      tree.delete(5); // 5 has two children (3 and 7)
+      expect(tree.includes(5)).toBe(false);
+      expect(tree.includes(3)).toBe(true); // Left child preserved
+      expect(tree.includes(7)).toBe(true); // Right child preserved
+    });
 
-  test("should delete the root node", () => {
-    tree.delete(10); // Deleting the root
-    expect(tree.includes(10)).toBe(false);
-    expect(tree.root).not.toBeNull(); // A new root should take its place
-    // Verify the rest of the tree is still intact and traversable
-    expect(tree.includes(15)).toBe(true);
-    expect(tree.includes(5)).toBe(true);
+    test("should delete the root node", () => {
+      tree.delete(10); // Deleting the root
+      expect(tree.includes(10)).toBe(false);
+      expect(tree.root).not.toBeNull(); // A new root should take its place
+      // Verify the rest of the tree is still intact and traversable
+      expect(tree.includes(15)).toBe(true);
+      expect(tree.includes(5)).toBe(true);
+    });
   });
 });
