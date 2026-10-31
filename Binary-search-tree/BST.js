@@ -248,7 +248,7 @@ export class Tree {
   //height is the number of edges(connections) nodes from the leaf Nodes
 
   #calculateHeight(currentNode) {
-    if (currentNode === null) return 0;
+    if (currentNode === null) return -1;
 
     this.#undefinedCheck(currentNode);
 
@@ -256,7 +256,7 @@ export class Tree {
     const rightNodeHeight = this.#calculateHeight(currentNode.rightNode);
 
     if (Math.abs(leftNodeHeight - rightNodeHeight) > 1) {
-      this.balanced = false;
+      return (this.balanced = false);
     }
 
     return Math.max(leftNodeHeight, rightNodeHeight) + 1;
@@ -328,3 +328,4 @@ const arr = [10, 5, 15, 3, 7, 20, 25];
 const tree = new Tree(arr);
 
 const found = tree.includes(10);
+const height = tree.height(10);
