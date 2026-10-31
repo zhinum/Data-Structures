@@ -165,7 +165,7 @@ export class Tree {
   levelOrderRecursively(callback) {
     const levelArray = [];
     this.#validateCallback(callback);
-    function traverseBreathOrderRecur(node, level) {
+    const traverseBreathOrderRecur = (node, level) => {
       if (node === null) return;
       this.#undefinedCheck(node);
 
@@ -177,7 +177,7 @@ export class Tree {
 
       traverseBreathOrderRecur(node.leftNode, level + 1);
       traverseBreathOrderRecur(node.rightNode, level + 1);
-    }
+    };
 
     traverseBreathOrderRecur(this.root, 0);
 
