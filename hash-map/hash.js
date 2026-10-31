@@ -1,4 +1,4 @@
-class HashMap {
+export class HashMap {
   constructor(initialCapacity = 16, loadFactor = 0.75) {
     this.loadFactor = loadFactor;
     this.capacity = initialCapacity;
@@ -165,5 +165,3 @@ class HashMap {
     );
   }
 }
-
-module.exports = { HashMap };
