@@ -120,32 +120,35 @@ export class Tree {
   }
 
   #deleteItemRecur(value, currentNode) {
-    if (currentNode === null || currentNode === value) {
-      return currentNode;
+    if (currentNode === null) {
+      return null;
     }
     this.#undefinedCheck(currentNode);
     // look for node with value.
     if (value > currentNode.value) {
-      currentNode.rightNode = this.#deleteItemRecur(value, currentNode.right);
+      currentNode.rightNode = this.#deleteItemRecur(
+        value,
+        currentNode.rightNode,
+      );
     } else if (value < currentNode.value) {
-      currentNode.leftNode = this.#deleteItemRecur(value, currentNode.left);
-    }
+      currentNode.leftNode = this.#deleteItemRecur(value, currentNode.leftNode);
+    } else if (currentNode.value === value) {
+      if (currentNode.rightNode === null) {
+        return currentNode.leftNode;
+      }
+      if (currentNode.leftNode === null) {
+        return currentNode.rightNode;
+      }
 
-    // check if node is empty
-    if (currentNode.rightNode === null) {
-      return currentNode.leftNode;
+      const sucessor = this.findSucessor(currentNode);
+      currentNode.value = sucessor.value;
+      //clear sucessor previous position
+      currentNode.rightNode = this.#deleteItemRecur(
+        sucessor.value,
+        currentNode.rightNode,
+      );
+      return currentNode;
     }
-    if (currentNode.leftNode === null) {
-      return currentNode.rightNode;
-    }
-
-    const sucessor = this.findSucessor(currentNode);
-    currentNode.value = sucessor.value;
-    //clear sucessor previous position
-    currentNode.right = this.#deleteItemRecur(
-      sucessor.value,
-      currentNode.right,
-    );
     return currentNode;
   }
 
@@ -154,7 +157,7 @@ export class Tree {
     currentNode = currentNode.rightNode;
 
     while (currentNode !== null && currentNode.leftNode !== null) {
-      currentNode = currentNode.left;
+      currentNode = currentNode.leftNode;
     }
     return currentNode;
   }
@@ -323,9 +326,15 @@ export class Tree {
     currentNode.value = callback(currentNode.value);
   }
 }
-
-const arr = [10, 5, 15, 3, 7, 20, 25];
+const arr = [5, 15, 3, 10, 7, 20, 25];
 const tree = new Tree(arr);
-
+tree.prettyPrint(tree.root);
 const found = tree.includes(10);
 const height = tree.height(10);
+const del = tree.delete(20);
+
+function add(num) {
+  return num + 2;
+}
+
+tree.levelOrderRecursively(add);
