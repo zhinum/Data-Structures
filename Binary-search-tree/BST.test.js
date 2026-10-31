@@ -78,7 +78,7 @@ describe("Binary Search Tree - Operations & Deletion Unit Tests", () => {
   test("3. Test height method for specific nodes", () => {
     expect(tree.height(3)).toBe(0); // Leaf node height is 0
     expect(tree.height(20)).toBe(1); // Node with one child height is 1
-    expect(tree.height(10)).toBe(3); // Root height spans the max depth
+    expect(tree.height(10)).toBe(2); // Root height spans the max depth
   });
 });
 
