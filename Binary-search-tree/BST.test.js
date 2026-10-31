@@ -50,14 +50,6 @@ describe("Binary Search Tree - Isolated Unit Tests", () => {
 describe("Binary Search Tree - Operations & Deletion Unit Tests", () => {
   let tree;
 
-  // Tree structure representation:
-  //         10 (Root)
-  //       /    \
-  //      5      15
-  //     / \       \
-  //    3   7       20
-  //                  \
-  //                   25
   beforeEach(() => {
     const arr = [10, 5, 15, 3, 7, 20, 25];
     tree = new Tree(arr);
