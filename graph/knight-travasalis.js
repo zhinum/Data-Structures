@@ -32,13 +32,15 @@ export const getKnightMoves = (x, y) => {
     [-2, -1],
   ];
 
-  for (let move of possibleMoves) {
-    let newX = x + move[0];
-    let newY = y + move[1];
+  for (let [dx, dy] of possibleMoves) {
+    let newX = x + dx;
+    let newY = y + dy;
 
     if (newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7) {
-      movesArr.push(move);
+      movesArr.push([newX, newY]);
     }
   }
   return movesArr;
 };
+
+/* getKnightMoves(3, 2); */
