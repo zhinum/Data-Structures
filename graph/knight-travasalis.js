@@ -1,28 +1,4 @@
-function knightMoves(start, end) {
-  const getKnightMoves = (x, y) => {
-    const movesArr = [];
-    const possibleMoves = [
-      [2, 1],
-      [1, 2],
-      [-1, 2],
-      [-2, 1],
-      [2, -1],
-      [1, -2],
-      [-1, -2],
-      [-2, -1],
-    ];
-
-    for (let move of possibleMoves) {
-      let newX = x + move[0];
-      let newY = y + move[1];
-
-      if (newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7) {
-        movesArr.push(move);
-      }
-    }
-    return movesArr;
-  };
-
+export function knightMoves(start, end) {
   const queue = [[start], [[start]]];
   const visited = new Set();
   visited.add(start.toString());
@@ -42,3 +18,27 @@ function knightMoves(start, end) {
     }
   }
 }
+
+export const getKnightMoves = (x, y) => {
+  const movesArr = [];
+  const possibleMoves = [
+    [2, 1],
+    [1, 2],
+    [-1, 2],
+    [-2, 1],
+    [2, -1],
+    [1, -2],
+    [-1, -2],
+    [-2, -1],
+  ];
+
+  for (let move of possibleMoves) {
+    let newX = x + move[0];
+    let newY = y + move[1];
+
+    if (newX >= 0 && newX <= 7 && newY >= 0 && newY <= 7) {
+      movesArr.push(move);
+    }
+  }
+  return movesArr;
+};
