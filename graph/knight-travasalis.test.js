@@ -1,8 +1,16 @@
 import { knightMoves } from "./knight-travasalis.js";
+import { getKnightMoves } from "./knight-travasalis.js";
 
 test("getKnightMoves from [4, 1] returns correct valid moves", () => {
-  const moves = knightMoves.getKnightMoves(4, 1);
-  expect(moves).toEqual([6, 2], [6, 0], [2, 2], [2, 0], [5, 3], [3, 3]);
+  const moves = getKnightMoves(4, 1);
+  expect(moves).toEqual([
+    [6, 2],
+    [5, 3],
+    [3, 3],
+    [2, 2],
+    [6, 0],
+    [2, 0],
+  ]);
 });
 
 test("finds the shortest path from [4, 1] to [4, 5]", () => {
