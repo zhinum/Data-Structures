@@ -1,11 +1,13 @@
 export function knightMoves(start, end) {
-  const queue = [[start], [[start]]];
+  const queue = [[start, [start]]];
   const visited = new Set();
   visited.add(start.toString());
 
   while (queue.length > 0) {
     const [currentPos, path] = queue.shift();
+
     const [currX, currY] = currentPos;
+
     if (currX === end[0] && currY === end[1]) return path;
 
     for (let nextMove of getKnightMoves(currX, currY)) {
@@ -13,7 +15,7 @@ export function knightMoves(start, end) {
 
       if (!visited.has(nextMoveKey)) {
         visited.add(nextMoveKey);
-        queue.push([nextMove], [...path, nextMove]);
+        queue.push([nextMove, [...path, nextMove]]);
       }
     }
   }
@@ -43,4 +45,6 @@ export const getKnightMoves = (x, y) => {
   return movesArr;
 };
 
-/* getKnightMoves(3, 2); */
+/* getKnightMoves(3, 2);
+knightMoves([3, 2], [7, 7]);
+ */
