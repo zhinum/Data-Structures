@@ -49,3 +49,4 @@ function trackFriend(personOfInterest) {
   startCount = 0; // return back to 0 if friend not found
   return "friend not found";
 }
+console.log(trackFriend("David"));
