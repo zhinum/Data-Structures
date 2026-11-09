@@ -16,8 +16,9 @@ describe("Tracking system of the graph", () => {
   });
   test("find person and shortest path to that person", () => {
     expect(trackFriend("Alice", "Frank", socialGraph)).toEqual([
-      "Bob",
+      "Alice",
       "Claire",
+      "Frank",
     ]);
   });
 });
