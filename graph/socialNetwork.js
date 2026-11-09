@@ -16,7 +16,7 @@ export function getFriends(person, graph) {
   return [];
 }
 
-function trackFriend(firstPerson, personOfInterest, graph) {
+export function trackFriend(firstPerson, personOfInterest, graph) {
   const queue = [firstPerson, [firstPerson]];
 
   const visited = new Set();
