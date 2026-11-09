@@ -27,7 +27,7 @@ export function trackFriend(firstPerson, personOfInterest, graph) {
 
     if (currentPerson === personOfInterest) return path;
 
-    const friends = getFriends(firstPerson, graph);
+    const friends = getFriends(currentPerson, graph);
     friends.forEach((friend) => {
       if (!visited.has(friend)) {
         visited.add(friend);
