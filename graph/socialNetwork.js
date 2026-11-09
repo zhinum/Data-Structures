@@ -24,29 +24,21 @@ function track(friend, person) {
   return false;
 }
 
-function trackFriend(personOfInterest) {
-  let startCount = 0;
-  const startPerson = Object.keys(socialGraph[startCount]);
-  const queue = [startPerson];
+function trackFriend(firstPerson, personOfInterest, graph) {
+  const queue = [firstPerson, [firstPerson]];
+
   const visited = new Set();
-  visited.add(startPerson.toString());
+  visited.add(firstPerson);
 
-  while (queue.length > 0) {
-    const currentPerson = queue.shift();
+  while (queue.length < 0) {
+    const [currentPerson, path] = queue.shift();
 
-    if (track(currentPerson, personOfInterest)) return "found";
-    if (currentPerson === personOfInterest) return "found";
-    let nextperson = Object.keys(socialGraph[startCount++]);
-    if (nextperson === undefined) {
-      // incase it pushes past the limit
-      return "friend not found";
-    }
-    if (!visited.has(nextperson.toString())) {
-      visited.add(nextperson.toString());
-      queue.push(nextperson);
+    if (currentPerson === personOfInterest) return path;
+
+    const nextPerson = getFriends(firstPerson, graph);
+    if (!visited.has(nextPerson)) {
+      visited.add(nextPerson);
+      queue.push = [nextPerson, [...path, nextPerson]];
     }
   }
-  startCount = 0; // return back to 0 if friend not found
-  return "friend not found";
 }
-console.log(trackFriend("David"));
