@@ -7,21 +7,13 @@ const socialGraph = {
   Frank: ["Claire"],
 };
 
-function getFriends(person, graph) {
+export function getFriends(person, graph) {
   for (let key in graph) {
     if (key === person) {
       return graph[key];
     }
   }
   return [];
-}
-
-function track(friend, person) {
-  let friendList = getFriends(friend, socialGraph);
-  for (let p of friendList) {
-    if (p === person) return true;
-  }
-  return false;
 }
 
 function trackFriend(firstPerson, personOfInterest, graph) {
